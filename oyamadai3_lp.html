@@ -1,13 +1,669 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>静けさに住む。｜尾山台3丁目 限定2戸</title>
+  <meta name="description" content="尾山台3丁目、限定2戸。防音・高断熱・光を備えた、在宅ワークにも休息にも心地よい住まい。現在設計中、事前案内受付中。" />
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --surface: #fffdf9;
+      --text: #1f1d1a;
+      --muted: #6d675e;
+      --line: #ded7cc;
+      --accent: #6c7a64;
+      --accent-dark: #55614f;
+      --shadow: 0 16px 40px rgba(31, 29, 26, 0.08);
+      --radius: 24px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(246, 243, 238, 0.82);
+      border-bottom: 1px solid rgba(222, 215, 204, 0.8);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .cta, .ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .cta {
+      background: var(--accent);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .cta:hover { background: var(--accent-dark); transform: translateY(-1px); }
+
+    .ghost {
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(255,255,255,0.6);
+    }
+
+    .hero {
+      padding: 64px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(108, 122, 100, 0.12);
+      color: var(--accent-dark);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(40px, 8vw, 72px);
+      line-height: 1.05;
+      margin: 0 0 18px;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-lead {
+      font-size: clamp(18px, 2.2vw, 22px);
+      color: var(--muted);
+      max-width: 36rem;
+      margin-bottom: 28px;
+    }
+
+    .hero-copy {
+      display: grid;
+      gap: 20px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 8px 0 4px;
+    }
+
+    .meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .hero-visual {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-visual img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: #ebe6df;
+    }
+
+    .visual-caption {
+      padding: 14px 18px 18px;
+      font-size: 14px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+    }
+
+    section { padding: 36px 0; }
+
+    .section-head {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .section-kicker {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-dark);
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.15;
+      margin: 0;
+      letter-spacing: -0.03em;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 44rem;
+    }
+
+    .stress-box,
+    .card,
+    .plan,
+    .profile,
+    .cta-panel,
+    .faq details {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .stress-box {
+      padding: 24px;
+    }
+
+    .stress-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .stress-list li {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(108, 122, 100, 0.08);
+      font-weight: 600;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 24px;
+    }
+
+    .card-number {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: rgba(108, 122, 100, 0.12);
+      color: var(--accent-dark);
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .card p { margin: 0; color: var(--muted); }
+
+    .plan-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .plan {
+      padding: 24px;
+    }
+
+    .plan ul {
+      margin: 12px 0 0;
+      padding-left: 1.1rem;
+      color: var(--muted);
+    }
+
+    .highlight {
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin: 0 0 10px;
+    }
+
+    .audience {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .profile {
+      padding: 22px;
+    }
+
+    .profile strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .profile p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .timeline .card { min-height: 100%; }
+
+    .faq {
+      display: grid;
+      gap: 12px;
+    }
+
+    .faq details {
+      padding: 18px 20px;
+    }
+
+    .faq summary {
+      cursor: pointer;
+      font-weight: 700;
+      list-style: none;
+    }
+
+    .faq summary::-webkit-details-marker { display: none; }
+
+    .faq p {
+      color: var(--muted);
+      margin: 12px 0 0;
+    }
+
+    .cta-panel {
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .cta-panel p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .cta-box {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .form-note {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 36px 0 56px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .cards,
+      .plan-grid,
+      .audience,
+      .timeline,
+      .cta-panel,
+      .stress-list {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links { display: none; }
+      .hero { padding-top: 32px; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Welcome to My Landing Page</h1>
-    <p>Current Date and Time (UTC): 2026-03-28 15:32:03</p>
-    <p>Current User's Login: tetsuyahishida</p>
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">尾山台3丁目｜限定2戸のコンセプト住宅</div>
+      <nav class="nav-links">
+        <a href="#concept">特徴</a>
+        <a href="#plan">プラン</a>
+        <a href="#target">想定居住者</a>
+        <a href="#entry">事前登録</a>
+      </nav>
+      <a class="cta" href="#entry">事前案内に登録</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div>
+            <span class="eyebrow">現在設計中 / 完成予定 約1年後</span>
+            <h1>静けさに住む。</h1>
+            <p class="hero-lead">
+              在宅ワークも、趣味も、休息も。<br />
+              すべての質を上げるための住まいを、尾山台3丁目で。
+            </p>
+          </div>
+
+          <div class="meta">
+            <span>限定2戸</span>
+            <span>高断熱・高性能</span>
+            <span>防音室付きプランあり</span>
+            <span>約58㎡ + ロフト約16㎡</span>
+          </div>
+
+          <div class="hero-actions">
+            <a class="cta" href="#entry">事前案内に登録する</a>
+            <a class="ghost" href="#plan">プランを見る</a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <img src="/mnt/data/landingpage image.jpg" alt="尾山台3丁目コンセプト住宅の外観パース" />
+          <div class="visual-caption">
+            ※ 画像は設計中の外観イメージです。公開時は実際のパース画像に差し替えてください。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="section-kicker">Problem</span>
+          <h2>家で過ごす時間が増えたのに、住まいは昔のまま。</h2>
+          <p class="section-desc">
+            会議のたびに音が気になり、夏は暑く、冬は寒い。集中したいのに環境が整わない。そんな日々の小さなストレスを、住まいの設計そのものから見直します。
+          </p>
+        </div>
+        <div class="stress-box">
+          <ul class="stress-list">
+            <li>会議中、生活音や外の音が気になる</li>
+            <li>夏暑く冬寒い室内で、疲れやすい</li>
+            <li>家にいる時間が長いほど、整わなさを感じる</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="concept">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-kicker">Concept</span>
+          <h2>この住宅が提供するのは、広さではなく「質」です。</h2>
+          <p class="section-desc">
+            高断熱・高性能というスペックを、温度、静けさ、光という毎日の体験価値に変える。暮らしの密度を高める、都市型ウェルビーイング住宅です。
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card-number">01</div>
+            <h3>静けさに集中する</h3>
+            <p>
+              防音室付きプランでは、オンライン会議、配信、音楽、読書まで、音に邪魔されない時間を確保。高断熱の躯体性能は、外の騒音や温度変化のストレスも抑えます。
+            </p>
+          </article>
+          <article class="card">
+            <div class="card-number">02</div>
+            <h3>温度に縛られない</h3>
+            <p>
+              一年を通して快適な室内環境を目指した、高断熱・高効率設備前提の設計。暑さ寒さを我慢する住まいではなく、何も考えずに心地よく過ごせる住まいへ。
+            </p>
+          </article>
+          <article class="card">
+            <div class="card-number">03</div>
+            <h3>光の中で暮らす</h3>
+            <p>
+              南向きの採光と吹抜けによって、小さくても広がりを感じる空間構成に。日々の作業、休息、家族との時間を、自然光がやわらかく支えます。
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="plan">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-kicker">Plan</span>
+          <h2>限定2戸。それぞれに違う魅力を持たせたメゾネットプラン。</h2>
+          <p class="section-desc">
+            同じコンセプトの中で、使い方の違いに応える2ユニットを構想しています。詳細プランは設計進行に応じてアップデート予定です。
+          </p>
+        </div>
+
+        <div class="plan-grid">
+          <article class="plan">
+            <p class="highlight">西ユニット</p>
+            <p>静けさと没入を重視する方向け。</p>
+            <ul>
+              <li>専有面積 約58㎡ + ロフト約16㎡</li>
+              <li>防音室付きプランを想定</li>
+              <li>在宅ワークや趣味との相性を重視</li>
+            </ul>
+          </article>
+
+          <article class="plan">
+            <p class="highlight">東ユニット</p>
+            <p>光と広がりを重視する方向け。</p>
+            <ul>
+              <li>専有面積 約58㎡ + ロフト約16㎡</li>
+              <li>南向きバルコニーを広めに確保</li>
+              <li>開放感と暮らしやすさの両立を重視</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="section-kicker">Energy & Lifestyle</span>
+          <h2>ライフスタイルに合わせたエネルギー設計</h2>
+          <p class="section-desc">
+            本プロジェクトでは、高断熱性能を前提に、居住者のライフスタイルに合わせた省エネ機器の導入も検討可能です。
+            ヒートポンプ給湯器や換気システムなどを含め、日々の使い方に最適化されたエネルギー設計をご提案します。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="target">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-kicker">Who It’s For</span>
+          <h2>こんな方に向けて設計しています。</h2>
+          <p class="section-desc">
+            価格だけで住まいを選ぶのではなく、仕事・休息・趣味の質まで含めて住環境を考えたい方へ。一般的な建売では物足りない人を想定しています。
+          </p>
+        </div>
+
+        <div class="audience">
+          <article class="profile">
+            <strong>在宅ワーク中心の方</strong>
+            <p>オンライン会議や集中作業のために、音と温熱環境を重視したい。</p>
+          </article>
+          <article class="profile">
+            <strong>感度の高いDINKs・少人数世帯</strong>
+            <p>広さよりも、空間体験やデザイン、性能の質を優先したい。</p>
+          </article>
+          <article class="profile">
+            <strong>趣味と生活を両立したい方</strong>
+            <p>音楽、配信、読書、創作など、没入できる場所を暮らしの中に持ちたい。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="section-kicker">Schedule</span>
+          <h2>現在は設計進行中。今いただく反応を、設計に反映します。</h2>
+          <p class="section-desc">
+            このページは販売開始ページではなく、コンセプトとプランの検証も兼ねた先行案内ページです。ご登録者には、設計アップデートや価格帯のご案内を優先してお届けします。
+          </p>
+        </div>
+
+        <div class="timeline">
+          <article class="card">
+            <div class="card-number">1</div>
+            <h3>現在</h3>
+            <p>コンセプト・プランの設計進行中</p>
+          </article>
+          <article class="card">
+            <div class="card-number">2</div>
+            <h3>今後</h3>
+            <p>ご登録者の反応をもとにプランを調整</p>
+          </article>
+          <article class="card">
+            <div class="card-number">3</div>
+            <h3>数ヶ月後</h3>
+            <p>仕様・価格帯・募集条件の更新案内</p>
+          </article>
+          <article class="card">
+            <div class="card-number">4</div>
+            <h3>完成予定</h3>
+            <p>約1年後を想定。優先案内を開始</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="section-kicker">Philosophy</span>
+          <h2>なぜこの住宅をつくるのか</h2>
+          <p class="section-desc">
+            この住宅は、単なるデザインやスペックではなく、
+            「これからの都市住宅のあり方」を前提に設計しています。
+            東京大学の研究会で発表した、高性能住宅の設計思想をベースにしています。
+          </p>
+        </div>
+
+        <div class="card" style="padding: 20px;">
+          <a href="https://www.youtube.com/watch?v=90UZOh6T1-Q" target="_blank" rel="noreferrer" style="display:block; position:relative; border-radius:16px; overflow:hidden;">
+            <img src="https://img.youtube.com/vi/90UZOh6T1-Q/maxresdefault.jpg" alt="東京大学セミナー発表（動画サムネイル）" style="width:100%; display:block;" />
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+              <div style="width:72px; height:72px; border-radius:999px; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 24px rgba(0,0,0,0.25);">
+                <div style="width:0; height:0; border-left:20px solid white; border-top:12px solid transparent; border-bottom:12px solid transparent; margin-left:6px;"></div>
+              </div>
+            </div>
+          </a>
+          <p style="margin-top: 12px; color: var(--muted);">
+            BIM・高断熱・都市型住宅設計を統合したアプローチについての発表（東京大学）。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="entry">
+      <div class="container">
+        <div class="cta-panel">
+          <div>
+            <div class="section-head" style="margin-bottom: 12px;">
+              <span class="section-kicker">Entry</span>
+              <h2>事前案内受付中</h2>
+            </div>
+            <p>
+              本プロジェクトは現在設計中です。完成は約1年後を予定しています。<br />
+              コンセプトにご興味のある方へ、優先的に情報をご案内いたします。
+            </p>
+          </div>
+          <div class="cta-box">
+            <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfxBdKRxtloF0rKvx3IXb6l8xiq9w4y25o_Q1e4eL3jLho6kA/viewform?usp=header" target="_blank" rel="noreferrer">事前登録フォームへ</a>
+            <a class="ghost" href="mailto:bimtaro@aol.com?subject=%E5%B0%BE%E5%B1%B1%E5%8F%B03%E4%B8%81%E7%9B%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B">メールで問い合わせる</a>
+            <div class="form-note">
+              ※ フォームURL、メールアドレス、価格帯、画像は公開前に実データへ差し替えてください。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      尾山台3丁目 コンセプト住宅プロジェクト / このページは設計検証を兼ねた先行案内ページです。
+    </div>
+  </footer>
 </body>
 </html>
